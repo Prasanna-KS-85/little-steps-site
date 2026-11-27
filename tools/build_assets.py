@@ -65,6 +65,14 @@ def icons() -> None:
             save_webp(big.resize((size, size), Image.LANCZOS), IMG / f"app-icon-{size}.webp", 90)
 
 
+def sprout() -> None:
+    """The app's menu-bar sprout (a black template image) in Forest Green, for the hero note."""
+    tray = Image.open(APP / "assets/tray/trayTemplate@2x.png").convert("RGBA")
+    green = Image.new("RGBA", tray.size, (0x52, 0x6B, 0x55, 255))
+    green.putalpha(tray.getchannel("A"))
+    green.save(IMG / "sprout-36.png", optimize=True)
+
+
 # ---------------------------------------------------------------- captures
 # Crop boxes in the app's CSS pixels (captures are 1000 x 900 at 4x, docs/capture-plan.md in the
 # launch repo). Plan boxes come from the capture manifest (plan x 70, y 93, width 616).
@@ -149,7 +157,11 @@ def main() -> None:
     if sys.argv[1:] == ["posters"]:  # only the hero posters and the Open Graph image
         hero_posters()
         return
+    if sys.argv[1:] == ["sprout"]:
+        sprout()
+        return
     icons()
+    sprout()
     captures()
     hero()
     loops()

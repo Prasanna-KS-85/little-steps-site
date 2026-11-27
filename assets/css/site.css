@@ -299,6 +299,30 @@ pre code {
   font-weight: var(--weight-medium);
 }
 
+/* A short note from the maker, under the Download area: left-aligned on phones, centred from 768 px. */
+.maker-note {
+  max-width: 30rem;
+  margin: var(--space-6) auto 0;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-card);
+  background: var(--color-soft-ivory);
+  border: 1px solid var(--color-hairline);
+  text-align: left;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-text-brown);
+}
+.maker-note img {
+  display: inline-block;
+  vertical-align: -0.2em;
+  margin-right: 0.35em;
+}
+@media (min-width: 768px) {
+  .maker-note {
+    text-align: center;
+  }
+}
+
 /* The film: 4:5 on phones, 16:9 from 768 px. The poster is a <picture> under the video, so each
    shape gets its own frame; the video is shown once it plays. */
 .film {

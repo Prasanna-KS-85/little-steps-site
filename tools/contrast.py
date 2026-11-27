@@ -29,6 +29,7 @@ TEXT = [
     ("color-charcoal", "color-pale-sage", "body text in sage sections, Coming soon label"),
     ("color-charcoal", "color-soft-ivory", "cards, notes, small buttons, code"),
     ("color-text-brown", "color-warm-cream", "footer, CTA note, film caption"),
+    ("color-text-brown", "color-soft-ivory", "the maker note in the hero"),
     ("color-text-brown", "color-pale-sage", "fine print in the companion section"),
     ("color-forest-green", "color-warm-cream", "links, eyebrows"),
     ("color-forest-green", "color-pale-sage", "eyebrows, summary in sage sections"),

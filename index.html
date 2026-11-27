@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self'; media-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>Little Steps · Small steps count.</title>
+    <meta
+      name="description"
+      content="Little Steps is a small companion for your Mac. Plan a few quests for the day, tick them off, and it walks a forest path, one step for each."
+    />
+    <meta name="theme-color" content="#f7f4ec" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Little Steps" />
+    <meta property="og:description" content="Small steps count. A small companion for your Mac that walks a forest path as you finish your daily quests." />
+    <meta property="og:image" content="og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="“Small steps count.” beside the Little Steps companion standing on a forest path." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" href="assets/fonts/Fraunces-Latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <script src="assets/js/config.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="#top" aria-label="Little Steps, top of page">
+          <img src="assets/icons/favicon-32.png" srcset="assets/img/app-icon-96.webp 3x" width="32" height="32" alt="" />
+          <span>Little Steps</span>
+        </a>
+        <nav class="site-nav" aria-label="Page sections">
+          <ul>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#install">Install</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- 1. Hero -->
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="wrap">
+          <img class="hero-icon" src="assets/img/app-icon-96.webp" srcset="assets/img/app-icon-192.webp 2x" width="96" height="96" alt="" />
+          <h1 id="hero-title">Little Steps</h1>
+          <p class="tagline">Small steps count.</p>
+          <p class="lede">
+            A small companion for your Mac. Plan a few quests for the day, tick them off, and it walks a forest path, one step for each.
+          </p>
+          <div class="cta">
+            <button class="button button--soon" type="button" disabled data-download>Coming soon</button>
+            <p class="cta-note">Apple Silicon Mac · macOS 13 Ventura or later</p>
+          </div>
+
+          <figure class="film" aria-labelledby="film-caption">
+            <div class="film-frame">
+              <picture>
+                <source media="(min-width: 768px)" srcset="assets/img/hero-poster-16x9.webp" width="1280" height="720" />
+                <img
+                  src="assets/img/hero-poster-4x5.webp"
+                  width="720"
+                  height="900"
+                  alt="“Small steps count.” in large letters beside the Little Steps companion, a small curly-haired character in a green hoodie, standing on a forest path."
+                />
+              </picture>
+              <video id="hero-video" muted loop playsinline preload="none" controls aria-describedby="film-description">
+                <source src="assets/video/hero-16x9.mp4" type="video/mp4" media="(min-width: 768px)" />
+                <source src="assets/video/hero-4x5.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="visually-hidden" id="film-description">
+              The companion waves on a forest path. A butterfly visits it. A click opens a small panel, and six quests are planned for the day.
+              Two are ticked off and the companion walks along the Journey path to the clearing, where a badge lands. On the desktop it
+              celebrates. History shows the days in a row go from three to four and the badges from eight to nine. In the evening it yawns.
+            </p>
+            <figcaption class="film-bar">
+              <span id="film-caption">The Little Steps film, 39 seconds.</span>
+              <span class="film-controls">
+                <button class="small-button" type="button" id="hero-sound">Turn sound on</button>
+                <button class="small-button" type="button" id="hero-play">Play</button>
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 2. How it works -->
+      <section class="section" id="how" aria-labelledby="how-title">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">How it works</span>
+            <h2 id="how-title">A few small things a day</h2>
+          </div>
+          <ol class="steps">
+            <li class="step">
+              <div class="step-text">
+                <span class="step-num" aria-hidden="true">1</span>
+                <h3>Plan a few small things.</h3>
+                <p>Write down what you’d like to do today, up to eight quests. Small ones count.</p>
+              </div>
+              <figure class="shot shot--plan">
+                <img
+                  src="assets/img/step-plan-560.webp"
+                  srcset="assets/img/step-plan-560.webp 560w, assets/img/step-plan-1120.webp 1120w"
+                  sizes="(min-width: 768px) 460px, 100vw"
+                  width="560"
+                  height="550"
+                  loading="lazy"
+                  decoding="async"
+                  alt="The Plan screen: Today’s quests for Friday 27 November, 6 of 8, listing Water the plants, Read 10 pages, Stretch for five minutes, Reply to two emails, Go for a short walk and Plan tomorrow’s lunch."
+                />
+              </figure>
+            </li>
+            <li class="step">
+              <div class="step-text">
+                <span class="step-num" aria-hidden="true">2</span>
+                <h3>Tick them off.</h3>
+                <p>When one is done, tick it. That’s all there is to it.</p>
+              </div>
+              <figure class="shot shot--tick">
+                <img
+                  src="assets/img/step-tick-560.webp"
+                  srcset="assets/img/step-tick-560.webp 560w, assets/img/step-tick-1120.webp 1120w"
+                  sizes="(min-width: 768px) 560px, 100vw"
+                  width="560"
+                  height="254"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Two quests ticked and struck through, Water the plants and Read 10 pages, above two still open: Stretch for five minutes and Reply to two emails."
+                />
+              </figure>
+            </li>
+            <li class="step">
+              <div class="step-text">
+                <span class="step-num" aria-hidden="true">3</span>
+                <h3>Your companion walks a step on the path.</h3>
+                <p>Each quest you finish is one step along the Journey. Finish them all and it reaches the clearing.</p>
+              </div>
+              <figure class="shot">
+                <img
+                  src="assets/img/step-journey-560.webp"
+                  srcset="assets/img/step-journey-560.webp 560w, assets/img/step-journey-1120.webp 1120w"
+                  sizes="(min-width: 768px) 560px, 100vw"
+                  width="560"
+                  height="201"
+                  loading="lazy"
+                  decoding="async"
+                  alt="The Journey: a winding forest path from Start to the Clearing with numbered checkpoints. The first two are ticked and the companion stands at the second."
+                />
+              </figure>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 3. Meet the companion -->
+      <section class="section section--sage" id="companion" aria-labelledby="companion-title">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Meet the companion</span>
+            <h2 id="companion-title">It keeps you company on your desktop</h2>
+            <p>It stands on your desktop, outside any window. Drag it wherever you like. Click it and it waves.</p>
+          </div>
+          <ul class="loops">
+            <li>
+              <figure class="loop" data-loop="the idle loop">
+                <div class="loop-frame">
+                  <video muted loop playsinline preload="none" controls poster="assets/img/companion-idle-poster.webp" width="480" height="480" aria-label="The companion standing, breathing and blinking">
+                    <source src="assets/video/companion-idle.mp4" type="video/mp4" />
+                  </video>
+                  <button class="small-button" type="button">Play</button>
+                </div>
+                <figcaption>
+                  <strong>Just being there</strong>
+                  <span>Most of the time it stands, breathes and blinks.</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="loop" data-loop="the butterfly loop">
+                <div class="loop-frame">
+                  <video muted loop playsinline preload="none" controls poster="assets/img/companion-butterfly-poster.webp" width="480" height="480" aria-label="A butterfly circles over the companion, which reaches up, hops and smiles as it flies away">
+                    <source src="assets/video/companion-butterfly.mp4" type="video/mp4" />
+                  </video>
+                  <button class="small-button" type="button">Play</button>
+                </div>
+                <figcaption>
+                  <strong>A butterfly visit</strong>
+                  <span>Now and then a butterfly drops by.</span>
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="loop" data-loop="the doze loop">
+                <div class="loop-frame">
+                  <video muted loop playsinline preload="none" controls poster="assets/img/companion-doze-poster.webp" width="480" height="480" aria-label="The companion sitting with its eyes closed while small z letters rise">
+                    <source src="assets/video/companion-doze.mp4" type="video/mp4" />
+                  </video>
+                  <button class="small-button" type="button">Play</button>
+                </div>
+                <figcaption>
+                  <strong>A little doze</strong>
+                  <span>Step away for five minutes and it yawns, sits down and dozes off.</span>
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+          <p class="fine">These clips come from the launch film, which replays the app’s own animation, frame by frame.</p>
+        </div>
+      </section>
+
+      <!-- 4. Rewards -->
+      <section class="section" id="rewards" aria-labelledby="rewards-title">
+        <div class="wrap rewards">
+          <div>
+            <div class="section-head">
+              <span class="eyebrow">Rewards</span>
+              <h2 id="rewards-title">Small days add up</h2>
+              <p>History keeps a gentle count of how it’s going.</p>
+            </div>
+            <ul class="reward-list">
+              <li>
+                <h3>Days in a row</h3>
+                <p>A day counts when you finish at least one quest. Today never breaks your run while it’s still going.</p>
+              </li>
+              <li>
+                <h3>Badges</h3>
+                <p>One for every day you finish your whole plan. Badges are yours to keep.</p>
+              </li>
+            </ul>
+          </div>
+          <figure class="shot">
+            <img
+              src="assets/img/history-after-400.webp"
+              srcset="assets/img/history-after-400.webp 400w, assets/img/history-after-800.webp 800w"
+              sizes="400px"
+              width="400"
+              height="638"
+              loading="lazy"
+              decoding="async"
+              alt="The History screen: Days in a row 4, your longest run yet. Badges 9. Below, the last 14 days as a strip of circles, most with a star for a whole plan done."
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- 5. Privacy: off until the network check passes (assets/js/config.js, privacy: true). -->
+      <template id="privacy-template">
+        <section class="section section--follow" id="privacy" aria-labelledby="privacy-title">
+          <div class="wrap">
+            <div class="privacy-card">
+              <span class="eyebrow">Privacy</span>
+              <h2 id="privacy-title">No account. No tracking. Your day stays on your Mac.</h2>
+            </div>
+          </div>
+        </section>
+      </template>
+
+      <!-- 6. Install and first open -->
+      <section class="section section--sage" id="install" aria-labelledby="install-title">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">Install</span>
+            <h2 id="install-title">Install and first open</h2>
+            <p>It takes a couple of minutes, and you only allow it once.</p>
+          </div>
+          <div class="install">
+            <ol class="install-steps">
+              <li>
+                <h3>Download</h3>
+                <p>You need a Mac with Apple silicon (M1 or later) and macOS 13 Ventura or later. It does not run on Macs with an Intel processor. The download is about 119 MB.</p>
+                <button class="button button--soon" type="button" disabled data-download>Coming soon</button>
+              </li>
+              <li>
+                <h3>Drag it to Applications</h3>
+                <ol>
+                  <li>Double-click the downloaded <code>.dmg</code> file. A window opens with the Little Steps icon and an Applications folder.</li>
+                  <li>Drag the Little Steps icon onto the Applications folder.</li>
+                  <li>Eject the disk (the eject button next to “Little Steps” in the Finder sidebar). You can then delete the <code>.dmg</code>.</li>
+                </ol>
+                <p>Keep the app in Applications: launch at login only works from there.</p>
+              </li>
+              <li>
+                <h3>Open it the first time</h3>
+                <ol>
+                  <li>Double-click Little Steps in your Applications folder.</li>
+                  <li>macOS says it could not verify that Little Steps is free of malware, and does not open it. Click <strong>Done</strong>, not Move to Trash.</li>
+                  <li>Open Apple menu &gt; <strong>System Settings</strong> &gt; <strong>Privacy &amp; Security</strong> and scroll down to Security. Next to the line saying Little Steps was blocked, click <strong>Open Anyway</strong>.</li>
+                  <li>Enter your Mac password or use Touch ID.</li>
+                  <li>macOS asks once more. Click <strong>Open Anyway</strong>.</li>
+                </ol>
+                <p>You only do this once. After that, Little Steps opens like any other app. If there is no Open Anyway button, double-click Little Steps once more and go back to Privacy &amp; Security: the button only shows for a while after a blocked open.</p>
+                <details>
+                  <summary>Prefer Terminal?</summary>
+                  <p>Instead of the steps above, run this, then open the app normally. It removes the “downloaded from the internet” mark, so macOS no longer asks. Only do this for apps you trust.</p>
+                  <pre><code>xattr -dr com.apple.quarantine "/Applications/Little Steps.app"</code></pre>
+                </details>
+              </li>
+            </ol>
+
+            <div class="side">
+              <div class="note" role="note" aria-labelledby="notarized-title">
+                <h3 id="notarized-title">Why macOS asks first</h3>
+                <p>Little Steps is not notarized. It isn’t signed with an Apple Developer ID or checked by Apple, so macOS blocks it the first time you open it, and you allow it once in System Settings. It doesn’t mean anything is wrong with the file.</p>
+              </div>
+              <div class="card">
+                <h3>Where to find it</h3>
+                <p>Little Steps has no Dock icon. Look for a small sprout in the menu bar at the top right of your screen: it opens the main window and Settings, hides or shows the companion, and quits the app.</p>
+              </div>
+              <div class="card" id="uninstall">
+                <h3>Uninstalling</h3>
+                <ol>
+                  <li>If you turned on launch at login, turn it off in Settings first.</li>
+                  <li>Quit Little Steps: sprout in the menu bar &gt; Quit Little Steps.</li>
+                  <li>Drag Little Steps from Applications to the Trash.</li>
+                  <li>
+                    To also remove your quests and history (this can’t be undone), in Finder choose Go &gt; Go to Folder… and move these to the Trash:
+                    <ul class="plain-list">
+                      <li>the folder <code>~/Library/Application Support/Little Steps</code></li>
+                      <li>the file <code>~/Library/Preferences/io.github.prasanna-ks-85.littlesteps.plist</code></li>
+                    </ul>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq" aria-labelledby="faq-title">
+        <div class="wrap">
+          <div class="section-head">
+            <span class="eyebrow">FAQ</span>
+            <h2 id="faq-title">Questions</h2>
+          </div>
+          <dl class="faq">
+            <dt>Is it free?</dt>
+            <dd>Yes. Little Steps is a free download.</dd>
+
+            <dt>Is there a Windows version?</dt>
+            <dd>Not yet. For now Little Steps runs on Macs with Apple silicon. A Windows version is planned for later, and it will only be published once it has been tested on real Windows PCs.</dd>
+
+            <dt>How do I update it?</dt>
+            <dd>
+              There are no automatic updates for now. Download the new version from this page, quit Little Steps, and drag the new app into Applications to replace the old one.
+              Your quests and history are kept outside the app, so they stay. macOS may ask you to allow the new copy once, as in step 3 above.
+            </dd>
+
+            <dt>Where is my data?</dt>
+            <dd>
+              On your Mac, in the folder <code>~/Library/Application Support/Little Steps</code>, with a small settings file at
+              <code>~/Library/Preferences/io.github.prasanna-ks-85.littlesteps.plist</code>. <a href="#uninstall">Uninstalling</a> shows how to remove both.
+            </dd>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <!-- 8. Footer -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Character and forest art made with ChatGPT image generation. Fonts: Fraunces and Nunito (SIL OFL 1.1:
+          <a href="assets/fonts/OFL-Fraunces.txt">Fraunces licence</a>, <a href="assets/fonts/OFL-Nunito.txt">Nunito licence</a>). Music and sounds made in code.
+        </p>
+        <p class="made">Made by Prasanna</p>
+      </div>
+    </footer>
+  </body>
+</html>

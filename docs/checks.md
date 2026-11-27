@@ -1,4 +1,4 @@
-# Checks (27 November 2026)
+# Checks (27 November 2026, re-run after the poster, Privacy and owner fixes)
 
 Run against `python3 -m http.server 8765 --bind 127.0.0.1`, using headless Google Chrome driven by
 `tools/shoot.mjs` (DevTools protocol, a throwaway profile, cache disabled).
@@ -7,11 +7,17 @@ Run against `python3 -m http.server 8765 --bind 127.0.0.1`, using headless Googl
 
 - `docs/screens/home-390.png`, `home-768.png`, `home-1440.png`
 - `docs/screens/404-390.png`, `404-1440.png`
+- Hero only, as a visitor sees it 3 s after load (`--hero`): `hero-390.png` (the film playing),
+  `hero-1440.png` (the poster; the film starts once you scroll it into view), and
+  `hero-reduced-390.png`, `hero-reduced-1440.png` (reduced motion: the poster, nothing plays)
 
-The checks also covered reduced motion, the 404 page and live mode with Privacy on (screenshots in
-the session scratchpad, not committed). For live mode, `config.js` was switched to `download: 'live'`
-and `privacy: true` for one run and then restored. That run showed the "Download for Mac" link and the
-Privacy section.
+The hero posters are frame 66 of the film, after all three words of "Small steps count." have landed
+(frame 60) and before the wave (70). The half-drawn "Small" in the first screenshots was the video's
+own frame 0, because the screenshot script used to rewind the videos; it no longer does.
+
+Live mode was checked in the first run (`download: 'live'` for one run, then restored), which showed
+the "Download for Mac" link. The Privacy section is no longer in any shipped file: the served
+`index.html` contains no "tracking" text (`docs/privacy-section.html` holds it).
 
 ## Every URL the page loads
 

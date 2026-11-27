@@ -18,7 +18,9 @@ Then open http://127.0.0.1:8765/ and stop the server with Ctrl+C when done.
 - `download`: `'soon'` (a disabled "Coming soon" button) or `'live'` (links to the latest GitHub
   release, `Little-Steps.dmg`)
 - `owner`: the GitHub account in that link
-- `privacy`: shows the Privacy section; keep it `false` until the network check has passed
+
+The Privacy section is not in the page. It goes in by hand once the network check has passed: see
+`docs/privacy-section.html`.
 
 ## Files
 
@@ -30,7 +32,7 @@ Then open http://127.0.0.1:8765/ and stop the server with Ctrl+C when done.
 | `assets/fonts/`          | Fraunces and Nunito from the app, with their SIL OFL 1.1 licence texts      |
 | `assets/img`, `video`    | Built by `tools/build_assets.py` from the app and launch repos (read-only)  |
 | `tools/`                 | Dev-only: asset build, contrast check, screenshot and request audit         |
-| `docs/`                  | Open items, check results, screenshots                                      |
+| `docs/`                  | Open items, checks, screenshots, the unshipped Privacy section             |
 
 ## Rebuild the images and videos
 

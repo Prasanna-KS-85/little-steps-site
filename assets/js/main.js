@@ -1,4 +1,4 @@
-// Little Steps site: the download state, the optional Privacy section, and the videos.
+// Little Steps site: the download state and the videos.
 // No network calls, no storage, no cookies.
 (function () {
   'use strict';
@@ -11,7 +11,7 @@
     if (config.download !== 'live') return; // the HTML already shows the "soon" state
     var url =
       'https://github.com/' +
-      encodeURIComponent(config.owner || 'OWNER') +
+      encodeURIComponent(config.owner || 'Prasanna-KS-85') +
       '/little-steps-site/releases/latest/download/Little-Steps.dmg';
     document.querySelectorAll('[data-download]').forEach(function (soon) {
       var link = document.createElement('a');
@@ -21,14 +21,6 @@
       link.setAttribute('data-download', '');
       soon.replaceWith(link);
     });
-  }
-
-  // ------------------------------------------------------------ privacy section
-  function setupPrivacy() {
-    if (config.privacy !== true) return;
-    var tpl = document.getElementById('privacy-template');
-    if (!tpl) return;
-    tpl.replaceWith(tpl.content.cloneNode(true));
   }
 
   // ------------------------------------------------------------ videos
@@ -120,7 +112,6 @@
   }
 
   setupDownload();
-  setupPrivacy();
   setupHero();
   setupLoops();
 })();

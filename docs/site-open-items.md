@@ -5,11 +5,8 @@ Each one names what would close it.
 
 ## Waiting on a check
 
-1. **Privacy section is off.** The page has the section ("No account. No tracking. Your day stays on
-   your Mac.") inside a `<template>` in `index.html`. It does not render and it is not in the
-   accessibility tree, but it is in the page source. It goes live with `privacy: true` in
-   `assets/js/config.js`, once the network check has passed. If even the source must not carry it until
-   then, delete the template and add it back later.
+1. **Privacy section is not in the page.** Its text is not in any shipped file. The section and the
+   steps to add it back are in `docs/privacy-section.html`; add it once the network check has passed.
 2. **The hero film is cut at 39.1 s, not the full 45.3 s.** From about frame 1176 the v2 film shows the
    same privacy line, and its lockup shows a literal `[site]` placeholder. The loop stops at frame
    1174, the end of the yawn (`HERO_END_FRAME` in `tools/build_assets.py`). To use the full film, the
@@ -24,13 +21,13 @@ Each one names what would close it.
    docs gives a price; the answer follows from the download being a plain GitHub release link. Please
    confirm, or change the answer in `index.html`.
 5. **Release asset name.** Live mode links to
-   `https://github.com/OWNER/little-steps-site/releases/latest/download/Little-Steps.dmg`. The build
-   makes `Little Steps-1.0.0-arm64.dmg`, so the release asset has to be uploaded (or renamed) as
-   `Little-Steps.dmg`, or that link will 404. `OWNER` is still a placeholder (`owner` in `config.js`).
+   `https://github.com/Prasanna-KS-85/little-steps-site/releases/latest/download/Little-Steps.dmg`. The
+   build makes `Little Steps-1.0.0-arm64.dmg`, so the release asset has to be uploaded (or renamed) as
+   `Little-Steps.dmg`, or that link will 404.
 6. **Host and site address.** `og:image` is a relative URL (`og-image.jpg`), and most link previews
    need an absolute one, so set it once the domain is known. `404.html` uses root paths (`/assets/…`):
    these work on Vercel or a custom domain, but not on a GitHub Pages project path
-   (`OWNER.github.io/little-steps-site/`).
+   (`prasanna-ks-85.github.io/little-steps-site/`).
 7. **Headers at the host.** The page sets a strict Content-Security-Policy in a `<meta>` tag (self
    only). `frame-ancestors` and other headers can only be set by the host; add them when deploying.
 8. **No-JS download state.** The download state is applied by `assets/js/main.js`. Without JavaScript

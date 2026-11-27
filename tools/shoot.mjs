@@ -13,6 +13,8 @@ import path from 'node:path';
 
 const [, , url = 'http://127.0.0.1:8765/', outDir = 'docs/screens', ...flags] = process.argv;
 const reduced = flags.includes('--reduced-motion');
+// --hero: no scrolling; capture the top 1400 px as a visitor sees it 3 s after load.
+const hero = flags.includes('--hero');
 const name = flags.find((f) => f.startsWith('--name='))?.slice(7) ?? 'home';
 const widths = (flags.find((f) => f.startsWith('--widths='))?.slice(9) ?? '390,768,1440').split(',').map(Number);
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
@@ -83,7 +85,15 @@ try {
     listeners.push(onMsg);
     await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 768 });
     await send('Page.navigate', { url });
-    await sleep(1500);
+    await sleep(hero ? 3000 : 1500);
+    if (hero) {
+      const shot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: 0, width, height: 1400, scale: 1 } });
+      const file = path.join(outDir, `${name}-${width}.png`);
+      writeFileSync(file, Buffer.from(shot.data, 'base64'));
+      listeners.splice(listeners.indexOf(onMsg), 1);
+      report[width] = { file, onLoad: [...requests.values()].map((r) => r.url), all: [...requests.values()] };
+      continue;
+    }
     // Load phase only: what the page fetches before anyone scrolls.
     const beforeScroll = [...requests.values()].map((r) => r.url);
     const { result } = await send('Runtime.evaluate', { expression: 'document.documentElement.scrollHeight', returnByValue: true });
@@ -92,7 +102,7 @@ try {
       await send('Runtime.evaluate', { expression: `window.scrollTo(0, ${y})` });
       await sleep(250);
     }
-    await send('Runtime.evaluate', { expression: 'window.scrollTo(0, 0); document.querySelectorAll("video").forEach(v => { v.pause(); v.currentTime = 0; });' });
+    await send('Runtime.evaluate', { expression: 'window.scrollTo(0, 0)' });
     await sleep(800);
     const full = (await send('Runtime.evaluate', { expression: 'document.documentElement.scrollHeight', returnByValue: true })).result.value;
     await send('Emulation.setDeviceMetricsOverride', { width, height: full, deviceScaleFactor: 1, mobile: width < 768 });

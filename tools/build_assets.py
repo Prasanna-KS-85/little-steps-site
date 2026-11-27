@@ -32,7 +32,7 @@ FPS = 30
 # privacy line ("No account. No tracking...") and then a "[site]" placeholder in the lockup. The
 # privacy claim waits for the network check (docs/site-open-items.md), so it is cut from the loop.
 HERO_END_FRAME = 1174
-POSTER_FRAME = 100  # the hook: "Small steps count." has landed, the companion on the path
+POSTER_FRAME = 66  # the hook: all three words of "Small steps count." have landed (60), before the wave (70)
 
 
 def run(*args: str) -> None:
@@ -95,6 +95,10 @@ def hero() -> None:
     common_v = ["-c:v", "libx264", "-preset", "veryslow", "-profile:v", "high", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]
     ff("-i", str(FILM_169), "-t", dur, "-vf", "scale=1280:720:flags=lanczos", *common_v, "-crf", "25", *common_a, str(VID / "hero-16x9.mp4"))
     ff("-i", str(FILM_45), "-t", dur, "-vf", "scale=720:900:flags=lanczos", *common_v, "-crf", "25", *common_a, str(VID / "hero-4x5.mp4"))
+    hero_posters()
+
+
+def hero_posters() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         for src, tag, size, og in [(FILM_169, "16x9", (1280, 720), True), (FILM_45, "4x5", (720, 900), False)]:
             png = Path(tmp) / f"{tag}.png"
@@ -138,8 +142,13 @@ def loops() -> None:
 
 
 def main() -> None:
+    import sys
+
     for d in (IMG, VID, ICO):
         d.mkdir(parents=True, exist_ok=True)
+    if sys.argv[1:] == ["posters"]:  # only the hero posters and the Open Graph image
+        hero_posters()
+        return
     icons()
     captures()
     hero()

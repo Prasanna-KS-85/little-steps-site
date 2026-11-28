@@ -255,3 +255,21 @@ Open Graph or meta text mentioned it.
 - Not run: clicking Download and opening the downloaded `.dmg` (headless Chrome would save a 119 MB file; the
   link was checked with curl and by its href instead), the `'soon'` fallback in the script (only read, not
   executed), Safari, Firefox, a real phone, and the hosted site (checked on the local server only).
+
+## Tested-on line: macOS 26 and 27 (28 November 2026)
+
+**Owner-reported, not run here.** On 2026-11-28 the owner installed and ran the live download on a second
+Apple silicon MacBook Air with macOS 26.2 (Tahoe), and the checksum matched
+`eefecf6e55050e87819c7991ecea8676d149686a54a057102ac7a346e14c3e35`. Earlier tests were on macOS 27.0.1.
+
+- Hero note now reads "Tested on macOS 26 and 27 (Apple silicon). Built for macOS 13 or later." (`index.html`).
+  The release-1.0.0 notes carry the same line; only that line changed, the asset is untouched (one asset,
+  119,034,251 bytes).
+- Left as is on purpose: the FAQ privacy sentence ("…watched the app's connections for several minutes on
+  macOS 27"), `docs/privacy-section.html` and `docs/site-open-items.md`, because that connection check was
+  done on macOS 27 only.
+- Nothing in `config.js`, the meta description or the Open Graph text mentions the tested-on version.
+- Page check run here (`tools/download-check.mjs`, local server, headless Chrome, 390 and 1440 px): no console
+  errors or failed requests, zero requests outside the page's own origin, no horizontal scroll, both Download
+  hrefs unchanged. The hero screenshots `docs/screens/download-hero-{390,1440}.png` (and the focus and no-JS
+  ones the script also rewrites) were retaken and show the new note.

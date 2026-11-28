@@ -325,8 +325,35 @@ pre code {
   vertical-align: -0.2em;
   margin-right: 0.35em;
 }
+.maker-note p + p {
+  margin-top: var(--space-1);
+}
+/* The quiet contact line: same type as the note, two small pills in the site's greens. */
+.maker-contact {
+  font-size: 0.875rem;
+}
+.pill {
+  display: inline-block;
+  margin-left: 0.2em;
+  padding: 0 0.65em;
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  background: var(--color-warm-cream);
+  color: var(--color-forest-green);
+  font-weight: var(--weight-medium);
+  line-height: 1.5;
+  text-decoration: none;
+}
+.pill:hover {
+  border-color: var(--color-forest-green);
+}
+.pill:focus-visible {
+  border-radius: 999px;
+}
 @media (min-width: 768px) {
+  /* Wider here so the note stays two lines of text plus the contact line, and the hero does not grow. */
   .maker-note {
+    max-width: 44rem;
     text-align: center;
   }
 }

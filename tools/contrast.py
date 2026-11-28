@@ -34,6 +34,7 @@ TEXT = [
     ("color-forest-green", "color-warm-cream", "links, eyebrows"),
     ("color-forest-green", "color-pale-sage", "eyebrows, summary in sage sections"),
     ("color-forest-green", "color-soft-ivory", "links in cards"),
+    ("color-forest-green", "color-warm-cream", "contact pills in the hero note (Forest Green text, Warm Cream pill)"),
     ("color-soft-ivory", "color-forest-green", "primary button, step numbers, skip link"),
     ("color-soft-ivory", "color-charcoal", "primary button hover"),
 ]

@@ -273,3 +273,39 @@ Apple silicon MacBook Air with macOS 26.2 (Tahoe), and the checksum matched
   errors or failed requests, zero requests outside the page's own origin, no horizontal scroll, both Download
   hrefs unchanged. The hero screenshots `docs/screens/download-hero-{390,1440}.png` (and the focus and no-JS
   ones the script also rewrites) were retaken and show the new note.
+
+## Contact line in the hero note and a FAQ entry (28 November 2026)
+
+- Hero note card (`index.html`, `assets/css/site.css`): a second line "Got a question or some feedback? Say hi:" with two
+  small pill links, **LinkedIn** (`https://www.linkedin.com/in/prasanna-kumar-k-s/`) and **Instagram**
+  (`https://www.instagram.com/prasanna__85/`). Both open in a new tab with `rel="noopener noreferrer"` and the
+  accessible names "Message Prasanna on LinkedIn (opens in a new tab)" and "… on Instagram (opens in a new tab)".
+  No icons, no email address anywhere. The pill type is 14 px, the note text 15 px.
+- FAQ: new last entry "How can I ask a question or send feedback?" (LinkedIn and Instagram links as above, and the
+  GitHub Issues link, same target as the footer link). The footer feedback link is unchanged.
+- Layout: from 768 px the note card is 44 rem wide instead of 30 rem, so the note text stays at two lines and the new
+  line fits without a taller hero. The Download button did not move (same top and left at 1440, 768 and 390 px).
+
+Run with `node tools/serve.mjs 8766 &` then `WIDTHS=<w> node --experimental-websocket tools/contact-check.mjs http://127.0.0.1:8766/ docs/screens`
+(headless Chrome, real Tab key events; the links are never clicked, they leave the site).
+
+| Check | 1440 px | 768 px | 390 px |
+|---|---|---|---|
+| Hero section height, before → after | 1551.2 → 1555.0 px (+3.8) | 1247.6 → 1251.3 px (+3.7) | 1387.9 → 1436.6 px (+48.7: the line wraps on a phone, allowed) |
+| Download button top / left, before → after | 555 / 618.2, unchanged | 456.8 / 282.2, unchanged | 482.9 / 93.2, unchanged |
+| All four contact links (2 hero, 2 FAQ): href exact, `target`, `rel`, accessible name | yes | yes | yes |
+| JavaScript off: the same four links present, correct, visible | yes | yes | yes |
+| Requests on load / outside the page's own origin | 16 / 0 | 18 / 0 | 16 / 0 |
+| Console errors, exceptions, failed requests | 0 | 0 | 0 |
+| Horizontal scroll | none | none | none |
+| Tab order in the hero | … Download, Release notes, LinkedIn, Instagram, Play the film … | same | same (no nav links on a phone) |
+| Focus ring on each pill (`:focus-visible` matches) | 2 px solid Forest Green, offset 2 px | same | same |
+
+- Screenshots: `docs/screens/contact-hero-{1440,768,390}.png` (hero with the note), `contact-faq-{1440,768,390}.png`
+  (the new FAQ entry; the FAQ is a plain list, so every entry is always open), `contact-focus-{linkedin,instagram}-{1440,768,390}.png`
+  (keyboard focus on each pill).
+- `python3 tools/contrast.py`: all pairs pass. Pill text, Forest Green `#526b55` on Warm Cream `#f7f4ec` (the pill
+  background), is **5.32:1** (WCAG AA needs 4.5:1). The note text it sits beside, Text Brown on Soft Ivory, is 5.59:1.
+  The pill's hairline border is decoration; the ring on focus is 5.32:1 against the page (needs 3:1).
+- Not run: clicking the links (they leave the site), Safari, Firefox, a real phone, a screen reader, and the hosted
+  site (local server only). The older `download-hero-*.png` screenshots still show the hero without the contact line.

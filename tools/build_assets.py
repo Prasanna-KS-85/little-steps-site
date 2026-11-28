@@ -24,15 +24,9 @@ VID = SITE / "assets" / "video"
 ICO = SITE / "assets" / "icons"
 
 FILM_169 = LAUNCH / "renders/drafts/v2/little-steps-v2-16x9.mp4"
-FILM_45 = LAUNCH / "renders/drafts/v2/little-steps-v2-4x5.mp4"
+HERO_SRC = LAUNCH / "renders/site-v4"  # the final hero loops and posters (32.3 s, 970 frames, no audio)
 CAPS = LAUNCH / "public/captures"
 FPS = 30
-
-# The hero loop stops at frame 1174, the end of the yawn. From about frame 1176 the film shows the
-# privacy line ("No account. No tracking...") and then a "[site]" placeholder in the lockup. The
-# privacy claim waits for the network check (docs/site-open-items.md), so it is cut from the loop.
-HERO_END_FRAME = 1174
-POSTER_FRAME = 66  # the hook: all three words of "Small steps count." have landed (60), before the wave (70)
 
 
 def run(*args: str) -> None:
@@ -97,26 +91,20 @@ def captures() -> None:
 
 # ---------------------------------------------------------------- film
 def hero() -> None:
-    dur = f"{HERO_END_FRAME / FPS:.4f}"
-    fade_at = f"{HERO_END_FRAME / FPS - 0.6:.4f}"
-    common_a = ["-c:a", "aac", "-b:a", "96k", "-af", f"afade=t=out:st={fade_at}:d=0.6"]
-    common_v = ["-c:v", "libx264", "-preset", "veryslow", "-profile:v", "high", "-pix_fmt", "yuv420p", "-movflags", "+faststart"]
-    ff("-i", str(FILM_169), "-t", dur, "-vf", "scale=1280:720:flags=lanczos", *common_v, "-crf", "25", *common_a, str(VID / "hero-16x9.mp4"))
-    ff("-i", str(FILM_45), "-t", dur, "-vf", "scale=720:900:flags=lanczos", *common_v, "-crf", "25", *common_a, str(VID / "hero-4x5.mp4"))
+    """The hero loops are final renders: copied as they are, never re-encoded."""
+    shutil.copyfile(HERO_SRC / "little-steps-hero-16x9.mp4", VID / "hero-16x9.mp4")
+    shutil.copyfile(HERO_SRC / "little-steps-hero-4x5.mp4", VID / "hero-4x5.mp4")
     hero_posters()
 
 
 def hero_posters() -> None:
-    with tempfile.TemporaryDirectory() as tmp:
-        for src, tag, size, og in [(FILM_169, "16x9", (1280, 720), True), (FILM_45, "4x5", (720, 900), False)]:
-            png = Path(tmp) / f"{tag}.png"
-            frame_png(src, POSTER_FRAME, png)
-            im = Image.open(png).convert("RGB")
-            save_webp(im.resize(size, Image.LANCZOS), IMG / f"hero-poster-{tag}.webp", 80)
-            if og:
-                # Open Graph: 1200 x 630 from the hook frame (scale to 1200 wide, trim 22 px top and bottom).
-                o = im.resize((1200, 675), Image.LANCZOS).crop((0, 22, 1200, 652))
-                o.save(SITE / "og-image.jpg", "JPEG", quality=86, optimize=True, progressive=True)
+    for tag, size in [("16x9", (1280, 720)), ("4x5", (720, 900))]:
+        im = Image.open(HERO_SRC / f"poster-{tag}.png").convert("RGB")
+        save_webp(im.resize(size, Image.LANCZOS), IMG / f"hero-poster-{tag}.webp", 80)
+        if tag == "16x9":
+            # Open Graph: 1200 x 630 from the poster (scale to 1200 wide, trim 22 px top and bottom).
+            o = im.resize((1200, 675), Image.LANCZOS).crop((0, 22, 1200, 652))
+            o.save(SITE / "og-image.jpg", "JPEG", quality=86, optimize=True, progressive=True)
 
 
 # Companion loops, cut from the 16:9 film (1920 x 1080): (start, end) frames, crop x, y, size.

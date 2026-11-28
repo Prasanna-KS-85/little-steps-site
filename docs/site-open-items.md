@@ -10,13 +10,14 @@ Each one names what would close it.
    Steps makes no network connections of its own, and that I read through the code and watched the app's
    connections for several minutes on macOS 27. Do not widen it (no "never", no audit claims) without a
    longer check. Where it lives and how to change it: `docs/privacy-section.html`.
-2. **The hero film is cut at 39.1 s, not the full 45.3 s.** From about frame 1176 the v2 film shows the
-   same privacy line, and its lockup shows a literal `[site]` placeholder. The loop stops at frame
-   1174, the end of the yawn (`HERO_END_FRAME` in `tools/build_assets.py`). To use the full film, the
-   network check has to pass and `[site]` has to be replaced in a new render in the launch repo.
-3. **The film is a draft render** (`little-steps-launch/renders/drafts/v2/`). When the final render
-   exists, point `tools/build_assets.py` at it and run it again. That rebuilds the hero, the three
-   companion clips, the posters and the Open Graph image.
+2. **RESOLVED: the hero film carries a privacy line.** `little-steps-launch/renders/site-v4/` (32.3 s,
+   970 frames, no audio) shows "No account. No tracking. Your day stays on your Mac." about 28 s in. The
+   longer network check has been done: a code audit, plus 1-second `lsof` sampling of the running app
+   (480 samples, zero connections). Limits: one macOS version, one session, and very short connections
+   can be missed. The owner approved the public wording, and the film line claims less than the FAQ line.
+3. **Rebuilding the hero.** `python3 tools/build_assets.py` copies the v4 loops and builds the posters
+   and Open Graph image from `renders/site-v4/`. The companion clips are still cut from the v2 draft
+   (`renders/drafts/v2/`).
 
 ## Needs the owner
 

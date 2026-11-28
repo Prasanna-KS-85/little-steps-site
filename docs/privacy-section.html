@@ -1,9 +1,19 @@
 <!--
-  Privacy section for index.html. NOT SHIPPED: it stays out of the page until the network check has
-  passed (docs/site-open-items.md).
+  Privacy section. SHIPPED: this is a copy of what sits in index.html, kept so it can be taken off and
+  put back. The page claims only what was checked: no network connections of its own (code read, and the
+  app's connections watched for several minutes on macOS 27). Do not widen the wording without a longer check.
 
-  To add it back:
-  1. Copy the <section> below into index.html, in place of the comment
+  To take it off:
+  1. In index.html, replace the whole <section id="privacy"> ... </section> (it sits between the Rewards
+     and Install sections) with the comment "<!-- 5. Privacy: off the page (docs/privacy-section.html) -->".
+  2. Nothing else: the styles (.section--follow, .privacy-card) stay in assets/css/site.css and no script
+     is involved. Then also drop "tracking" from this check: docs/checks.md expects it only in this section.
+
+  To put it back:
+  1. Copy the <section> below into index.html, in place of that comment.
+  2. That's all.
+-->
+<section> below into index.html, in place of the comment
      "<!-- 5. Privacy: not on the page ... -->", which sits between the Rewards and Install sections.
   2. That's all. The styles are already in assets/css/site.css (.section--follow, .privacy-card),
      and no script is involved.
@@ -14,7 +24,8 @@
   <div class="wrap">
     <div class="privacy-card">
       <span class="eyebrow">Privacy</span>
-      <h2 id="privacy-title">No account. No tracking. Your day stays on your Mac.</h2>
+      <h2 id="privacy-title">Little Steps makes no network connections of its own. No account. No tracking. Your day stays on your Mac.</h2>
+      <p>I read through the code and watched the app’s connections for several minutes on macOS 27.</p>
     </div>
   </div>
 </section>

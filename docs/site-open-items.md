@@ -5,8 +5,10 @@ Each one names what would close it.
 
 ## Waiting on a check
 
-1. **Privacy section is not in the page.** Its text is not in any shipped file. The section and the
-   steps to add it back are in `docs/privacy-section.html`; add it once the network check has passed.
+1. **Privacy section is in the page, with a modest check behind it.** It says only that Little Steps
+   makes no network connections of its own, and that I read through the code and watched the app's
+   connections for several minutes on macOS 27. Do not widen it (no "never", no audit claims) without a
+   longer check. How to take it off or put it back: `docs/privacy-section.html`.
 2. **The hero film is cut at 39.1 s, not the full 45.3 s.** From about frame 1176 the v2 film shows the
    same privacy line, and its lockup shows a literal `[site]` placeholder. The loop stops at frame
    1174, the end of the yawn (`HERO_END_FRAME` in `tools/build_assets.py`). To use the full film, the
@@ -36,10 +38,10 @@ Each one names what would close it.
 
 ## Not verified, so worded carefully or left out
 
-9. **Open Anyway steps on macOS 13 and 14.** The steps (click Done, then Privacy & Security > Open
-   Anyway) are copied from `docs/INSTALL.md` in the app repo. They match the current macOS dialog. The
-   dialog wording on Ventura and Sonoma was not checked and may differ (for example, Cancel instead of
-   Done).
+9. **Open Anyway steps on macOS 13 and 14.** The steps (click Done, grey button; Privacy & Security >
+   Open Anyway; the "Open "Little Steps"?" dialog > Open Anyway, middle button; administrator name and
+   password or Touch ID) are the order observed on macOS 27. The dialog wording and order on Ventura
+   and Sonoma were not checked and may differ.
 10. **Updating.** The page says "macOS may ask you to allow the new copy once." It is not tested
     whether a replaced, newly downloaded copy brings the Gatekeeper prompt back. That a replaced app
     keeps the data is verified: the data is in `userData`, outside the app bundle.

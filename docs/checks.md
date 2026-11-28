@@ -65,8 +65,9 @@ File sizes of what is requested (KB, 1 KB = 1024 bytes). "Load" is before any sc
 - Each video has `preload="none"` and starts only when at least 35% of it is on screen (and the reader
   has not asked for reduced motion). At 1440 px the film sits just below that line, so the first load is
   204 KB. On phones and tablets the film is already on screen at load, so it starts right away.
-- Hero film: `hero-16x9.mp4` 1280x720, 1.28 MB; `hero-4x5.mp4` 720x900, 1.09 MB (H.264, AAC
-  96 kbit/s, 39.1 s). Only one of them loads, picked by width.
+- Hero film: `hero-16x9.mp4` 1920x1080, 1.41 MB; `hero-4x5.mp4` 1080x1350, 1.48 MB (H.264, no audio,
+  32.3 s, 970 frames). Only one of them loads, picked by width. The Video column in the table above
+  is from before this swap and was not re-measured; see "Final hero film" below.
 - Companion clips: idle 15 KB, butterfly 31 KB, doze 18 KB (480x480, no audio).
 - The clip posters (about 9 KB each) load at page load, because `poster` is not lazy.
 - Not requested by the page itself: `og-image.jpg` (52 KB, for link previews), the 2x image variants
@@ -108,3 +109,45 @@ Sage at 4.95:1.
 - "tracking" appears once in `index.html`, inside that FAQ answer. Not found in CSS, JS or `404.html`.
 - Screenshots: `docs/screens/home-faq-{390,1440}.png` (`--sections=faq`). The earlier
   `home-privacy-*.png` crops were removed because that section no longer exists.
+
+## Final hero film, v4 loops (28 November 2026)
+
+The hero is now the final render from `little-steps-launch/renders/site-v4/` (copied, not re-encoded;
+that folder was only read). `tools/build_assets.py` copies the same files and builds the posters and
+`og-image.jpg` from `poster-*.png`.
+
+- Weights (limit 1.5 MB = 1,500,000 bytes, checked after copying): `hero-16x9.mp4` 1,409,732 bytes
+  (1.41 MB), `hero-4x5.mp4` 1,477,810 bytes (1.48 MB). Both pass. Both are byte-identical to the source.
+- `ffprobe`: H.264, 970 frames, 30 fps, 32.33 s, no audio stream (16:9 is 1920x1080, 4:5 is 1080x1350).
+  In Chrome `webkitAudioDecodedByteCount` is 0.
+- Posters: `hero-poster-16x9.webp` (1280x720, 72 KB), `hero-poster-4x5.webp` (720x900, 53 KB), from the
+  v4 poster frame (frame 100: "64 to do. Your list grows. Your day shrinks. Start small."). The
+  site uses WebP, so the supplied `.jpg`/`.png` posters are not copied into it. `og-image.jpg` is
+  rebuilt from the 16:9 poster (1200x630, 123 KB).
+- Removed: the old v2 hero loops and posters (replaced in place, same file names), the "Turn sound
+  on" button (the loops have no audio), and the `controls` attribute (the script removed it anyway;
+  the video is invisible without JavaScript). The Play/Pause button stays (WCAG 2.2.2).
+- Text: caption "32 seconds" (was 39), the hidden film description and the poster alt text now match
+  the new film.
+- `node --experimental-websocket tools/film-check.mjs http://127.0.0.1:8765/ docs/screens`, headless
+  Chrome, a local server that supports HTTP Range requests (Python's `http.server` does not, and
+  then seeking in a video fails), at 1440, 768 and 390 px:
+  - Requests (on load and after scrolling to the film): all to `127.0.0.1:8765`, zero third-party.
+    The 390 px load makes 18 requests, 768 px 17, 1440 px 19; the video is one of them. The only
+    non-http entries are inline `data:` icons from the companion clips' controls.
+  - Console: no errors, no failed requests, no exceptions at any width.
+  - Attributes at run time: muted, loop, playsinline, `controls` false, plays by itself once the film
+    is on screen, the right file per width (16:9 at 768 and 1440, 4:5 at 390).
+  - Reduced motion: no hero video requested, the video stays paused at 0 s, the poster is shown.
+  - JavaScript off: the poster loads (right shape per width) and the video is at opacity 0.
+  - Loop: playing from 0.3 s before the end, the clip wraps from 32.29 s to the start by itself, keeps
+    playing, and never fires `ended`. The last frame is the "Little Steps / Free for Mac." lockup and
+    frame 0 is the "6 to do" card, so the restart is a hard cut, not a crossfade (seen in frames 940,
+    969 and 0 pulled with `ffmpeg`).
+  - Screenshots, film frame only: `docs/screens/film-{1440,768,390}-poster.png` (reduced motion,
+    nothing playing), `-mid.png` (playing, paused at 16 s), `-nojs.png` (JavaScript off).
+- Not run: Safari or Firefox, a real phone, the full-page screenshots and page-weight table above, and the
+  live host (Range requests were checked only against the local test server).
+- **The film now shows "No account. No tracking." on screen** (about 28 s into the loop, 4:5 and 16:9).
+  `docs/site-open-items.md` says the privacy claim waits for a longer check and the FAQ answer is
+  deliberately narrower. Decide before this ships; see the PR.

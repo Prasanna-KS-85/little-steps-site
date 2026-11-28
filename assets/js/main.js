@@ -84,22 +84,11 @@
     if (!video) return;
     var frame = video.closest('.film');
     var playBtn = document.getElementById('hero-play');
-    var soundBtn = document.getElementById('hero-sound');
     frame.classList.add('film--ready');
     video.addEventListener('playing', function () {
       frame.classList.add('film--started');
     });
     setupVideo(video, playBtn, 'the film');
-
-    soundBtn.addEventListener('click', function () {
-      var on = video.muted; // turning sound on
-      video.muted = !on;
-      soundBtn.textContent = on ? 'Turn sound off' : 'Turn sound on';
-      if (on && video.paused) {
-        video.dataset.userPaused = '';
-        play(video);
-      }
-    });
   }
 
   function setupLoops() {

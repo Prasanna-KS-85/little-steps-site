@@ -94,6 +94,9 @@ def hero() -> None:
     """The hero loops are final renders: copied as they are, never re-encoded."""
     shutil.copyfile(HERO_SRC / "little-steps-hero-16x9.mp4", VID / "hero-16x9.mp4")
     shutil.copyfile(HERO_SRC / "little-steps-hero-4x5.mp4", VID / "hero-4x5.mp4")
+    # The full film with sound, played by "Watch with sound" (loaded only on click).
+    shutil.copyfile(HERO_SRC / "little-steps-film-16x9.mp4", VID / "film-16x9.mp4")
+    shutil.copyfile(HERO_SRC / "little-steps-film-4x5.mp4", VID / "film-4x5.mp4")
     hero_posters()
 
 

@@ -88,20 +88,31 @@
                 <source src="assets/video/hero-16x9.mp4" type="video/mp4" media="(min-width: 768px)" />
                 <source src="assets/video/hero-4x5.mp4" type="video/mp4" />
               </video>
+              <!-- The film with sound: no src and no <source> until "Watch with sound" is pressed, so nothing loads before that. -->
+              <video id="film-video" playsinline preload="none" aria-describedby="film-description"></video>
             </div>
             <p class="visually-hidden" id="film-description">
-              A pile of to-do notes grows to 64, then a card says to start small. The companion, a small curly-haired character in a green
+              A silent loop of the Little Steps film. The “Watch with sound” button plays the whole film, about 33 seconds, from the
+              start, with its music and sounds; its last frame adds a credit line. A pile of to-do notes grows to 64, then a card says to start small. The companion, a small curly-haired character in a green
               hoodie with a sprout on its head, stands on a forest path while a butterfly visits it. Two quests are ticked off, and the
               companion walks along the Journey path to the clearing. It celebrates: “That was lovely work.” History shows the days in a
               row at four and nine badges. A line says there is no account and no tracking, and the day stays on your Mac. In the end the
               companion falls asleep beside the Little Steps name, and the film says it is free for Mac.
             </p>
             <figcaption class="film-bar">
-              <span id="film-caption">The Little Steps film, 32 seconds.</span>
+              <span id="film-caption">A tiny friend for your small wins.</span>
               <span class="film-controls">
                 <button class="small-button" type="button" id="hero-play">Play</button>
               </span>
             </figcaption>
+            <div class="film-actions">
+              <button class="small-button" type="button" id="film-watch">Watch with sound</button>
+              <span class="film-sound-controls" id="film-sound-controls" hidden>
+                <button class="small-button" type="button" id="film-toggle">Pause the film</button>
+                <button class="small-button" type="button" id="film-back">Back to the loop</button>
+              </span>
+            </div>
+            <p class="visually-hidden" id="film-status" role="status" aria-live="polite"></p>
           </figure>
         </div>
       </section>

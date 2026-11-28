@@ -151,3 +151,63 @@ that folder was only read). `tools/build_assets.py` copies the same files and bu
 - **The film now shows "No account. No tracking." on screen** (about 28 s into the loop, 4:5 and 16:9).
   `docs/site-open-items.md` says the privacy claim waits for a longer check and the FAQ answer is
   deliberately narrower. Decide before this ships; see the PR.
+
+## Hero caption and "Watch with sound" (28 November 2026)
+
+- Caption: "A tiny friend for your small wins." (was "The Little Steps film, 32 seconds."). The hidden
+  film description now says the page shows a silent loop, that the button plays the whole film (about
+  33 seconds) with its music and sounds, and that its last frame adds a credit line (checked on
+  frame 33 s of the 16:9 file). The poster alt text is unchanged and still matches the poster.
+- New: a "Watch with sound" button under the caption. It plays `assets/video/film-16x9.mp4` (768 px and up)
+  or `film-4x5.mp4` (below 768 px) from 0 s, with sound. Both are copied byte for byte from
+  `little-steps-launch/renders/site-v4/` (5,417,642 and 3,973,247 bytes; that folder was only read).
+  `ffprobe`: H.264 + AAC, 33.33 s.
+- The film is a second `<video id="film-video" preload="none">` with no `src` and no `<source>`. The
+  script sets `src` on click, so nothing loads before it. While the film plays the loop is paused;
+  controls are "Pause the film" / "Play the film" and "Back to the loop" (Escape does the same). When
+  the film ends the page goes back to the silent loop by itself. A visually hidden `role="status"`
+  `aria-live="polite"` line announces each change.
+- Without JavaScript the button row is `display: none`: the poster is all there is.
+
+### Run (Node test server with Range support, headless Chrome, `tools/sound-check.mjs`)
+
+`node tools/serve.mjs` (127.0.0.1:8766) then, once per width,
+`WIDTHS=<w> node --experimental-websocket tools/sound-check.mjs http://127.0.0.1:8766/ docs/screens`.
+One Chrome per width because after JavaScript is switched off and on again the renderer hung when the
+next width began in the same process (it hung every time; cause not investigated).
+
+| Check | 1440 | 768 | 390 |
+| --- | --- | --- | --- |
+| Requests on load | 16 | 17 | 15 |
+| Film files requested on load, or after scrolling the film into view | 0 | 0 | 0 |
+| File requested after the click | film-16x9.mp4 | film-16x9.mp4 | film-4x5.mp4 |
+| Other requests after the click | favicon-32.png (own origin) | same | same |
+| Third-party requests (load and click) | 0 | 0 | 0 |
+| Console errors, exceptions, failed requests | 0 | 0 | 0 |
+| JavaScript off: button hidden, poster shown | yes (16x9) | yes (16x9) | yes (4x5) |
+
+- Before the click the film element has no `src`, no `<source>`, `preload="none"`, `networkState` 0.
+- Keyboard only, real key events (Tab, Enter, Space, Escape): Tab reaches "Watch with sound" (7 tabs
+  at 1440 and 768, 4 at 390, because the header nav is hidden there); Enter starts the film and moves
+  focus to "Pause the film"; Space pauses ("The film is paused.") and resumes; Tab reaches "Back to
+  the loop"; Enter returns, focus lands on "Watch with sound" and the loop plays again; Escape also
+  returns. The focus ring was 2 px solid on all three buttons (`:focus-visible` matched).
+- While the film plays: `muted` false, volume 1, the loop `paused` true, the status line reads
+  "Playing the film with sound." At the end of the film (seeked to 0.6 s before the end): status
+  "The film has ended. Back to the silent loop.", the loop plays, focus is on "Watch with sound".
+- Reduced motion: on load the loop is paused and neither hero file nor film file is requested; a real
+  click on "Watch with sound" plays the film; "Back to the loop" returns to the poster with the loop
+  still paused.
+- Range requests (Node server log): the browser asks `Range: bytes=0-` and gets `206` for the film
+  at all three widths. By hand: `bytes=0-99` 206, `bytes=100-199` 206 with `Content-Range: bytes 100-199/3973247`,
+  `bytes=99999999-` 416. No other range requests were needed; the end-of-film test seeked within the
+  buffered data.
+- Screenshots (film figure including caption and buttons): `docs/screens/sound-{1440,768,390}-loop.png`
+  (silent loop, button shown), `-film.png` (film playing, at 8 s), `-nojs.png` (JavaScript off).
+- Weight on load: no new request and no new media bytes at any width. The text files grew:
+  HTML +957 B, JS +3,415 B, CSS +708 B (raw 5,080 B; gzip level 9: +1,221 B, 1.2 KB). So the page is
+  not literally unchanged in weight: by about 1.2 KB compressed, and the film's 5.4 MB / 4.0 MB stays off
+  the load path.
+- Not run: Safari, Firefox, a real phone, audible playback (Chrome ran muted at the OS level, but the
+  element was unmuted and decoded audio), the live host, and the full-page screenshots and page-weight
+  table of the earlier sections.

@@ -47,7 +47,11 @@
     sync();
   }
 
+  // True while the film with sound is on: the silent loop must stay paused.
+  var filmOn = false;
+
   function play(video) {
+    if (filmOn && video.id === 'hero-video') return;
     var p = video.play();
     if (p && typeof p.catch === 'function') p.catch(function () {});
   }
@@ -91,6 +95,95 @@
     setupVideo(video, playBtn, 'the film');
   }
 
+  // ------------------------------------------------------------ the film with sound
+  // Nothing is requested until the button is pressed: the video has no src and preload="none".
+  // The file (16:9 from 768 px, 4:5 below) is chosen at click time. The loop pauses while the film
+  // plays, and the page returns to the loop when the film ends or "Back to the loop" is pressed.
+  function setupFilm() {
+    var loop = document.getElementById('hero-video');
+    var film = document.getElementById('film-video');
+    var watch = document.getElementById('film-watch');
+    var toggle = document.getElementById('film-toggle');
+    var back = document.getElementById('film-back');
+    var group = document.getElementById('film-sound-controls');
+    var status = document.getElementById('film-status');
+    if (!loop || !film || !watch || !toggle || !back || !group || !status) return;
+    var figure = loop.closest('.film');
+    var wide = window.matchMedia('(min-width: 768px)');
+
+    function say(text) {
+      status.textContent = text;
+    }
+
+    function stop(message) {
+      var hadFocus = group.contains(document.activeElement);
+      filmOn = false;
+      film.pause();
+      figure.classList.remove('film--sound');
+      group.hidden = true;
+      watch.hidden = false;
+      if (hadFocus) watch.focus();
+      if (!reduceMotion.matches && loop.dataset.userPaused !== 'true') play(loop);
+      say(message);
+    }
+
+    function labelToggle() {
+      toggle.textContent = film.paused ? 'Play the film' : 'Pause the film';
+    }
+
+    watch.addEventListener('click', function () {
+      var file = wide.matches ? 'assets/video/film-16x9.mp4' : 'assets/video/film-4x5.mp4';
+      filmOn = true;
+      loop.pause();
+      if (film.getAttribute('src') !== file) film.setAttribute('src', file);
+      film.muted = false;
+      film.currentTime = 0;
+      watch.hidden = true;
+      group.hidden = false;
+      labelToggle();
+      say('Loading the film with sound.');
+      toggle.focus();
+      var p = film.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          if (filmOn) stop('The film could not play. Back to the loop.');
+        });
+      }
+    });
+
+    film.addEventListener('playing', function () {
+      if (!filmOn) return;
+      figure.classList.add('film--sound');
+      labelToggle();
+      say('Playing the film with sound.');
+    });
+    film.addEventListener('pause', function () {
+      if (!filmOn || film.ended) return;
+      labelToggle();
+      say('The film is paused.');
+    });
+    film.addEventListener('play', function () {
+      if (filmOn) labelToggle();
+    });
+    film.addEventListener('ended', function () {
+      if (filmOn) stop('The film has ended. Back to the silent loop.');
+    });
+    film.addEventListener('error', function () {
+      if (filmOn) stop('The film could not load. Back to the loop.');
+    });
+
+    toggle.addEventListener('click', function () {
+      if (film.paused) play(film);
+      else film.pause();
+    });
+    back.addEventListener('click', function () {
+      stop('Back to the silent loop.');
+    });
+    figure.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && filmOn) stop('Back to the silent loop.');
+    });
+  }
+
   function setupLoops() {
     document.querySelectorAll('[data-loop]').forEach(function (fig) {
       var video = fig.querySelector('video');
@@ -102,5 +195,6 @@
 
   setupDownload();
   setupHero();
+  setupFilm();
   setupLoops();
 })();

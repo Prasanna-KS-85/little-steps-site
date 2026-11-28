@@ -19,8 +19,8 @@ Then open http://127.0.0.1:8765/ and stop the server with Ctrl+C when done.
   release, `Little-Steps.dmg`)
 - `owner`: the GitHub account in that link
 
-The Privacy section is in the page. How to take it off again, and put it back, is in
-`docs/privacy-section.html`.
+There is no Privacy section. The privacy statement is one FAQ entry in `index.html` ("Does Little Steps
+collect my data or use the internet?"). Where it lives and how to change it: `docs/privacy-section.html`.
 
 ## Files
 
@@ -32,7 +32,7 @@ The Privacy section is in the page. How to take it off again, and put it back, i
 | `assets/fonts/`          | Fraunces and Nunito from the app, with their SIL OFL 1.1 licence texts      |
 | `assets/img`, `video`    | Built by `tools/build_assets.py` from the app and launch repos (read-only)  |
 | `tools/`                 | Dev-only: asset build, contrast check, screenshot and request audit         |
-| `docs/`                  | Open items, checks, screenshots, the Privacy section (how to remove or restore) |
+| `docs/`                  | Open items, checks, screenshots, the FAQ privacy entry (where it lives, how to change it) |
 
 ## Rebuild the images and videos
 

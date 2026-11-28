@@ -380,6 +380,39 @@ pre code {
 .film--ready .film-controls {
   display: flex;
 }
+.film--sound .film-controls {
+  display: none;
+}
+/* "Watch with sound": hidden without JavaScript (the poster alone is shown), shown once the script is ready. */
+.film-actions {
+  display: none;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.film--ready .film-actions {
+  display: flex;
+}
+.film-sound-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.film-sound-controls[hidden],
+.film-actions [hidden] {
+  display: none;
+}
+.film-actions .small-button {
+  min-height: 44px;
+  padding-inline: 1.1rem;
+}
+/* The film sits above the silent loop while it plays. */
+.film-frame #film-video {
+  opacity: 0;
+}
+.film--sound .film-frame #film-video {
+  opacity: 1;
+}
 
 /* ------------------------------------------------------------ sections */
 .section {

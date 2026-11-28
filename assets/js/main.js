@@ -7,19 +7,18 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   // ------------------------------------------------------------ download buttons
+  // The HTML holds the real download link, so it works without JavaScript. Only when config.js says
+  // 'soon' does the script swap each link for the disabled "Coming soon" button.
   function setupDownload() {
-    if (config.download !== 'live') return; // the HTML already shows the "soon" state
-    var url =
-      'https://github.com/' +
-      encodeURIComponent(config.owner || 'Prasanna-KS-85') +
-      '/little-steps-site/releases/latest/download/Little-Steps.dmg';
-    document.querySelectorAll('[data-download]').forEach(function (soon) {
-      var link = document.createElement('a');
-      link.className = 'button button--primary';
-      link.href = url;
-      link.textContent = 'Download for Mac';
-      link.setAttribute('data-download', '');
-      soon.replaceWith(link);
+    if (config.download === 'live') return;
+    document.querySelectorAll('[data-download]').forEach(function (link) {
+      var soon = document.createElement('button');
+      soon.className = 'button button--soon';
+      soon.type = 'button';
+      soon.disabled = true;
+      soon.textContent = 'Coming soon';
+      soon.setAttribute('data-download', '');
+      link.replaceWith(soon);
     });
   }
 

@@ -211,3 +211,47 @@ next width began in the same process (it hung every time; cause not investigated
 - Not run: Safari, Firefox, a real phone, audible playback (Chrome ran muted at the OS level, but the
   element was unmuted and decoded audio), the live host, and the full-page screenshots and page-weight
   table of the earlier sections.
+
+## Download goes live (28 November 2026)
+
+`config.js` is now `download: 'live'`. The two Download buttons (hero, Install step 1) are plain
+`<a href>` links in `index.html`; the script no longer builds them. Release:
+[release-1.0.0](https://github.com/Prasanna-KS-85/little-steps-site/releases/tag/release-1.0.0), one asset
+`Little-Steps.dmg`, 119,034,251 bytes, sha256 `eefecf6e55050e87819c7991ecea8676d149686a54a057102ac7a346e14c3e35`
+(the release notes list it under "Checksum").
+
+Copy changes: hero note "Free for Mac · Apple silicon (M1 or newer) · macOS 13 Ventura or later" (Apple
+silicon was "Apple Silicon Mac", "Free for Mac" was only in the film), the "Tested on macOS 27…" note kept,
+a quiet line "About 119 MB · Release notes and checksum" under it, and the same notes link under the Install
+button ("M1 or later" there is now "M1 or newer"). Nothing else on the page said "soon": no footer, FAQ,
+Open Graph or meta text mentioned it.
+
+### Run (`node tools/serve.mjs`, then `WIDTHS=<w> node --experimental-websocket tools/download-check.mjs http://127.0.0.1:8766/ docs/screens`, headless Chrome, one per width)
+
+| Check | 1440 | 768 | 390 |
+| --- | --- | --- | --- |
+| Both Download hrefs equal the expected URL exactly | yes | yes | yes |
+| Requests on load (to the page's own origin) | 16 | 21 | 16 |
+| Third-party requests | 0 | 0 | 0 |
+| Console errors, exceptions, failed requests | 0 | 0 | 0 |
+| Horizontal scroll | none | none | none |
+| Tab reaches hero button (real key events); `:focus-visible` matches; ring | 6 tabs, 2 px solid Forest Green, offset 2 px | same | 3 tabs, same |
+| JavaScript off: both links present, real `<a>`, correct href, visible | yes | yes | yes |
+| Footer feedback link, real click | lands on `github.com/Prasanna-KS-85/little-steps-site/issues` ("Issues · Prasanna-KS-85/little-steps-site") | same | same |
+
+- The request count at load varies between runs (16 to 21): the hero loop may or may not have started
+  within the 2.5 s wait. The table is the last run; every run had zero third-party requests.
+- `curl -sIL https://github.com/Prasanna-KS-85/little-steps-site/releases/latest/download/Little-Steps.dmg`:
+  302 to `…/releases/download/release-1.0.0/Little-Steps.dmg`, 302 to `release-assets.githubusercontent.com`,
+  then **HTTP/2 200, content-length 119034251**. The release-notes page and the Issues page also end 200.
+- `gh release view release-1.0.0`: asset digest `sha256:eefecf6e…c3e35`, size 119034251, not a draft or
+  prerelease.
+- `python3 tools/contrast.py`: all pairs pass.
+- Screenshots: `docs/screens/download-hero-{1440,768,390}.png` (top of the page with the live button),
+  `download-install-*.png` (Install step 1), `download-focus-*.png` (keyboard focus on the hero button),
+  `download-hero-nojs-*.png` (JavaScript off).
+- The download itself is a normal click-through navigation to github.com; the page makes no request for it.
+  The Content-Security-Policy does not restrict link navigation, so it is unaffected.
+- Not run: clicking Download and opening the downloaded `.dmg` (headless Chrome would save a 119 MB file; the
+  link was checked with curl and by its href instead), the `'soon'` fallback in the script (only read, not
+  executed), Safari, Firefox, a real phone, and the hosted site (checked on the local server only).

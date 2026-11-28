@@ -299,6 +299,14 @@ pre code {
   font-weight: var(--weight-medium);
 }
 
+.cta-fine {
+  font-size: 0.875rem;
+  color: var(--color-text-brown);
+}
+.cta-fine a {
+  color: inherit;
+}
+
 /* A short note from the maker, under the Download area: left-aligned on phones, centred from 768 px. */
 .maker-note {
   max-width: 30rem;

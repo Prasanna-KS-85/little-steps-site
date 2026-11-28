@@ -24,38 +24,45 @@ Each one names what would close it.
 4. **"Is it free?"** The page says "Yes. Little Steps is a free download." Nothing in the app or its
    docs gives a price; the answer follows from the download being a plain GitHub release link. Please
    confirm, or change the answer in `index.html`.
-5. **Release asset name.** Live mode links to
-   `https://github.com/Prasanna-KS-85/little-steps-site/releases/latest/download/Little-Steps.dmg`. The
-   build makes `Little Steps-1.0.0-arm64.dmg`, so the release asset has to be uploaded (or renamed) as
-   `Little-Steps.dmg`, or that link will 404.
+5. **RESOLVED: release asset name.** The public release
+   [release-1.0.0](https://github.com/Prasanna-KS-85/little-steps-site/releases/tag/release-1.0.0) has one
+   asset, `Little-Steps.dmg` (119,034,251 bytes, sha256 `eefecf6e…c3e35`, listed under "Checksum" in the
+   release notes). `releases/latest/download/Little-Steps.dmg` redirects to it and ends HTTP 200 with that
+   content-length (28 November 2026). The link keeps working only while each new release is the latest
+   one and carries an asset with this exact name.
 6. **Host and site address.** `og:image` is a relative URL (`og-image.jpg`), and most link previews
    need an absolute one, so set it once the domain is known. `404.html` uses root paths (`/assets/…`):
    these work on Vercel or a custom domain, but not on a GitHub Pages project path
    (`prasanna-ks-85.github.io/little-steps-site/`).
 7. **Headers at the host.** The page sets a strict Content-Security-Policy in a `<meta>` tag (self
    only). `frame-ancestors` and other headers can only be set by the host; add them when deploying.
-8. **No-JS download state.** The download state is applied by `assets/js/main.js`. Without JavaScript
-   the buttons stay "Coming soon", even in live mode. If that matters, also change the two
-   `data-download` buttons in `index.html` by hand when going live.
+8. **RESOLVED: no-JS download state.** The Download links are plain `<a href>` elements in `index.html`
+   (hero and Install step 1), so they work without JavaScript. `config.js` `download: 'live'` leaves them
+   alone; `'soon'` makes the script swap them for a disabled "Coming soon" button, which then needs
+   JavaScript (without it the links stay live). `owner` in `config.js` is no longer used to build the link.
+9. **Release notes link is pinned to 1.0.0.** "Release notes and checksum" links to the `release-1.0.0`
+   tag page, while the Download link follows "latest". When a newer release ships, update that link (in
+   the hero and in Install step 1) and the "About 119 MB" text, or the notes and checksum will describe
+   an older file than the one downloaded.
 
 ## Not verified, so worded carefully or left out
 
-9. **Open Anyway steps on macOS 13 and 14.** The steps (click Done, grey button; Privacy & Security >
+10. **Open Anyway steps on macOS 13 and 14.** The steps (click Done, grey button; Privacy & Security >
    Open Anyway; the "Open "Little Steps"?" dialog > Open Anyway, middle button; administrator name and
    password or Touch ID) are the order observed on macOS 27. The dialog wording and order on Ventura
    and Sonoma were not checked and may differ.
-10. **Updating.** The page says "macOS may ask you to allow the new copy once." It is not tested
+11. **Updating.** The page says "macOS may ask you to allow the new copy once." It is not tested
     whether a replaced, newly downloaded copy brings the Gatekeeper prompt back. That a replaced app
     keeps the data is verified: the data is in `userData`, outside the app bundle.
-11. **The preferences file** `~/Library/Preferences/io.github.prasanna-ks-85.littlesteps.plist` comes
+12. **The preferences file** `~/Library/Preferences/io.github.prasanna-ks-85.littlesteps.plist` comes
     from `docs/INSTALL.md` and exists on this Mac. The app's code does not create it by name (Electron
     and macOS write it under the bundle ID), so this is documented and observed, not traced in code.
-12. **Download size** "about 119 MB" is the current local build (`out/make/…/Little
-    Steps-1.0.0-arm64.dmg`, 119,033,777 bytes). Update it if the release file differs.
-13. **The screenshots show a seeded demo session** (the launch repo's capture plan, a fixed date of
+13. **Download size** "About 119 MB" now matches the published release asset (119,034,251 bytes, 119.03 MB
+    in decimal units, 113.5 MiB). Update it with each new release.
+14. **The screenshots show a seeded demo session** (the launch repo's capture plan, a fixed date of
     Friday 27 November, made-up history). They are real captures of the packaged app, and the alt
     texts describe what is shown.
-14. **The companion clips are not screen recordings.** They are cut from the launch film, which
+15. **The companion clips are not screen recordings.** They are cut from the launch film, which
     replays the app's behaviour data with the app's timing. The page says so under the clips.
-15. **The "Windows (later)" answer** comes from the app repo's platform scope (CLAUDE.md, D-030: a
+16. **The "Windows (later)" answer** comes from the app repo's platform scope (CLAUDE.md, D-030: a
     deferred Windows track, nothing published before testing on real Windows). No date is given.

@@ -18,9 +18,9 @@ Then open http://127.0.0.1:8765/ and stop the server with Ctrl+C when done.
 
 `assets/js/config.js` holds everything that changes at launch:
 
-- `download`: `'soon'` (a disabled "Coming soon" button) or `'live'` (links to the latest GitHub
-  release, `Little-Steps.dmg`)
-- `owner`: the GitHub account in that link
+- `download`: `'live'` (the links in `index.html` to the latest GitHub release, `Little-Steps.dmg`,
+  which work without JavaScript) or `'soon'` (the script swaps them for a disabled "Coming soon" button)
+- `owner`: the GitHub account that holds the repository (the script no longer builds the link from it; the links in `index.html` carry the account name)
 
 There is no Privacy section. The privacy statement is one FAQ entry in `index.html` ("Does Little Steps
 collect my data or use the internet?"). Where it lives and how to change it: `docs/privacy-section.html`.
@@ -34,7 +34,7 @@ collect my data or use the internet?"). Where it lives and how to change it: `do
 | `assets/css/site.css`    | The site's styles (token colours only)                                      |
 | `assets/fonts/`          | Fraunces and Nunito from the app, with their SIL OFL 1.1 licence texts      |
 | `assets/img`, `video`    | Built by `tools/build_assets.py` from the app and launch repos (read-only)  |
-| `tools/`                 | Dev-only: asset build, contrast check, screenshot and request audit, Range server (`serve.mjs`), film checks (`film-check.mjs`, `sound-check.mjs`) |
+| `tools/`                 | Dev-only: asset build, contrast check, screenshot and request audit, Range server (`serve.mjs`), film checks (`film-check.mjs`, `sound-check.mjs`), Download check (`download-check.mjs`) |
 | `docs/`                  | Open items, checks, screenshots, the FAQ privacy entry (where it lives, how to change it) |
 
 ## Rebuild the images and videos

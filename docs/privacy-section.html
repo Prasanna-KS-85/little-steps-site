@@ -1,32 +1,15 @@
 <!--
-  Privacy section. SHIPPED: this is a copy of what sits in index.html, kept so it can be taken off and
-  put back. The page claims only what was checked: no network connections of its own (code read, and the
-  app's connections watched for several minutes on macOS 27). Do not widen the wording without a longer check.
+  The privacy statement. It is NOT a section any more: it is one FAQ entry in index.html, second in the
+  list, right after "Is it free?". This file is the reference copy of that entry.
 
-  To take it off:
-  1. In index.html, replace the whole <section id="privacy"> ... </section> (it sits between the Rewards
-     and Install sections) with the comment "<!-- 5. Privacy: off the page (docs/privacy-section.html) -->".
-  2. Nothing else: the styles (.section--follow, .privacy-card) stay in assets/css/site.css and no script
-     is involved. Then also drop "tracking" from this check: docs/checks.md expects it only in this section.
+  The page claims only what was checked: no network connections of its own (code read, and the app's
+  connections watched for several minutes on macOS 27). Do not widen the wording without a longer check.
 
-  To put it back:
-  1. Copy the <section> below into index.html, in place of that comment.
-  2. That's all.
+  To change it: edit the <dt>/<dd> pair in the FAQ (<dl class="faq">) in index.html, then update the copy
+  below. No styles or script are involved; it uses the same markup as the other entries.
+
+  To take it off: delete the two lines from index.html. "tracking" should appear in index.html only in
+  this answer (docs/checks.md).
 -->
-<section> below into index.html, in place of the comment
-     "<!-- 5. Privacy: not on the page ... -->", which sits between the Rewards and Install sections.
-  2. That's all. The styles are already in assets/css/site.css (.section--follow, .privacy-card),
-     and no script is involved.
-
-  To take it off again, delete the section from index.html.
--->
-<section class="section section--follow" id="privacy" aria-labelledby="privacy-title">
-  <div class="wrap">
-    <div class="privacy-card">
-      <span class="eyebrow">Privacy</span>
-      <h2 id="privacy-title">Little Steps makes no network connections of its own.</h2>
-      <p>No account. No tracking. Your day stays on your Mac.</p>
-      <p>I read through the code and watched the app’s connections for several minutes on macOS 27.</p>
-    </div>
-  </div>
-</section>
+<dt>Does Little Steps collect my data or use the internet?</dt>
+<dd>No. Little Steps makes no network connections of its own. No account. No tracking. Your day stays on your Mac. I read through the code and watched the app’s connections for several minutes on macOS 27.</dd>

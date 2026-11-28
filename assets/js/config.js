@@ -5,8 +5,8 @@
 //           https://github.com/Prasanna-KS-85/little-steps-site/releases/latest/download/Little-Steps.dmg
 // owner:    the GitHub account that holds the little-steps-site repository.
 //
-// The Privacy section is not a switch: it is plain HTML in index.html.
-// How to take it off or put it back: docs/privacy-section.html.
+// The privacy answer is not a switch: it is a plain FAQ entry in index.html.
+// Where it lives and how to change it: docs/privacy-section.html.
 window.LITTLE_STEPS_CONFIG = {
   download: 'soon',
   owner: 'Prasanna-KS-85',

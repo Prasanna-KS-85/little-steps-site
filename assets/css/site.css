@@ -385,9 +385,6 @@ pre code {
 .section {
   padding-block: var(--section-space);
 }
-.section--follow {
-  padding-top: 0;
-}
 .section--sage {
   background: var(--color-pale-sage);
 }
@@ -584,20 +581,6 @@ pre code {
 }
 .reward-list p {
   margin-top: var(--space-2);
-}
-
-/* Privacy (shown only when config.privacy is true) */
-.privacy-card {
-  max-width: 44rem;
-  margin-inline: auto;
-  padding: clamp(32px, 6vw, 56px);
-  border-radius: var(--radius-card);
-  background: var(--color-soft-ivory);
-  border: 1px solid var(--color-hairline);
-  text-align: center;
-}
-.privacy-card p {
-  margin-top: var(--space-4);
 }
 
 /* Install */

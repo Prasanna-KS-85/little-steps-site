@@ -98,3 +98,13 @@ Sage at 4.95:1.
   (`--sections=install,privacy,footer`).
 - Not checked: the Open Graph tags were not fetched from the live site, and the Feedback link was not
   clicked (no external requests).
+
+## Privacy moved into the FAQ (28 November 2026)
+
+- The standalone Privacy section, its styles (`.privacy-card`, `.section--follow`) and its comment are
+  gone from the page. No `#privacy` link existed. The statement is now the second FAQ entry.
+- Requests at 390, 768 and 1440 px (local server, headless Chrome): all to the page's own origin.
+- `python3 tools/contrast.py`: all pairs pass.
+- "tracking" appears once in `index.html`, inside that FAQ answer. Not found in CSS, JS or `404.html`.
+- Screenshots: `docs/screens/home-faq-{390,1440}.png` (`--sections=faq`). The earlier
+  `home-privacy-*.png` crops were removed because that section no longer exists.

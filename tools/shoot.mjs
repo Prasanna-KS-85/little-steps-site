@@ -16,6 +16,8 @@ const reduced = flags.includes('--reduced-motion');
 // --hero: no scrolling; capture the top 1400 px as a visitor sees it 3 s after load.
 const hero = flags.includes('--hero');
 const name = flags.find((f) => f.startsWith('--name='))?.slice(7) ?? 'home';
+// --sections=install,privacy,footer: also write <name>-<id>-<width>.png, cropped to each element (id, or a tag name such as footer).
+const sections = (flags.find((f) => f.startsWith('--sections='))?.slice(11) ?? '').split(',').filter(Boolean);
 const widths = (flags.find((f) => f.startsWith('--widths='))?.slice(9) ?? '390,768,1440').split(',').map(Number);
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const profile = mkdtempSync(path.join(tmpdir(), 'ls-shoot-'));
@@ -110,6 +112,11 @@ try {
     const shot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: 0, width, height: full, scale: 1 } });
     const file = path.join(outDir, `${name}-${width}.png`);
     writeFileSync(file, Buffer.from(shot.data, 'base64'));
+    for (const sel of sections) {
+      const r = (await send('Runtime.evaluate', { expression: `(() => { const e = document.getElementById(${JSON.stringify(sel)}) || document.querySelector(${JSON.stringify(sel)}); const b = e.getBoundingClientRect(); return [b.top + scrollY, b.height]; })()`, returnByValue: true })).result.value;
+      const crop = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true, clip: { x: 0, y: r[0], width, height: r[1], scale: 1 } });
+      writeFileSync(path.join(outDir, `${name}-${sel}-${width}.png`), Buffer.from(crop.data, 'base64'));
+    }
     listeners.splice(listeners.indexOf(onMsg), 1);
     report[width] = { file, height: full, onLoad: beforeScroll, all: [...requests.values()] };
   }

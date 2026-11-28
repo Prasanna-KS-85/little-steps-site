@@ -86,3 +86,15 @@ Sage at 4.95:1.
 - Focus is visible everywhere (Forest Green, 2 px, offset 2 px, as in the app).
 - Motion: nothing plays under reduced motion. Every moving video has a Pause button (WCAG 2.2.2), and
   sound is off until the reader turns it on.
+
+## Wording and Privacy pass (28 November 2026)
+
+- Served with `python3 -m http.server 8765 --bind 127.0.0.1`, headless Chrome via `tools/shoot.mjs`.
+- Requests at 390, 768 and 1440 px: every request to `127.0.0.1:8765` (the page's own origin), none
+  external (the only non-http entries are inline `data:` icons from the video controls).
+- `python3 tools/contrast.py`: all pairs pass.
+- "tracking" appears once in `index.html`, in the Privacy heading. The footer has no such text.
+- Section crops: `home-install-{390,1440}.png`, `home-privacy-{390,1440}.png`, `home-footer-{390,1440}.png`
+  (`--sections=install,privacy,footer`).
+- Not checked: the Open Graph tags were not fetched from the live site, and the Feedback link was not
+  clicked (no external requests).

@@ -21,7 +21,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Little Steps" />
     <meta property="og:description" content="Small steps count. A small companion for your Mac that walks a forest path as you finish your daily quests." />
-    <meta property="og:image" content="og-image.jpg" />
+    <meta property="og:url" content="https://little-steps-weld.vercel.app/" />
+    <meta property="og:image" content="https://little-steps-weld.vercel.app/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="“Small steps count.” beside the Little Steps companion standing on a forest path." />
@@ -65,6 +66,7 @@
           <div class="cta">
             <button class="button button--soon" type="button" disabled data-download>Coming soon</button>
             <p class="cta-note">Apple Silicon Mac · macOS 13 Ventura or later</p>
+            <p class="cta-note">Tested on macOS 27 (Apple silicon). Built for macOS 13 or later.</p>
           </div>
           <p class="maker-note">
             <img src="assets/img/sprout-36.png" width="18" height="18" alt="" />
@@ -263,7 +265,17 @@
         </div>
       </section>
 
-      <!-- 5. Privacy: not on the page until the network check passes (docs/privacy-section.html). -->
+      <!-- 5. Privacy (how to take it off or put it back: docs/privacy-section.html) -->
+      <section class="section section--follow" id="privacy" aria-labelledby="privacy-title">
+        <div class="wrap">
+          <div class="privacy-card">
+            <span class="eyebrow">Privacy</span>
+            <h2 id="privacy-title">Little Steps makes no network connections of its own.</h2>
+            <p>No account. No tracking. Your day stays on your Mac.</p>
+            <p>I read through the code and watched the app’s connections for several minutes on macOS 27.</p>
+          </div>
+        </div>
+      </section>
 
       <!-- 6. Install and first open -->
       <section class="section section--sage" id="install" aria-labelledby="install-title">
@@ -287,16 +299,17 @@
                   <li>Drag the Little Steps icon onto the Applications folder.</li>
                   <li>Eject the disk (the eject button next to “Little Steps” in the Finder sidebar). You can then delete the <code>.dmg</code>.</li>
                 </ol>
+                <p>If macOS asks for a password, enter your Mac login password. If you are not an administrator, ask the person who is.</p>
                 <p>Keep the app in Applications: launch at login only works from there.</p>
               </li>
               <li>
                 <h3>Open it the first time</h3>
                 <ol>
                   <li>Double-click Little Steps in your Applications folder.</li>
-                  <li>macOS says it could not verify that Little Steps is free of malware, and does not open it. Click <strong>Done</strong>, not Move to Trash.</li>
+                  <li>macOS says it could not verify that Little Steps is free of malware, and does not open it. Click <strong>Done</strong>, the grey button. <strong>The blue button is Move to Trash (or Bin) and must not be clicked.</strong></li>
                   <li>Open Apple menu &gt; <strong>System Settings</strong> &gt; <strong>Privacy &amp; Security</strong> and scroll down to Security. Next to the line saying Little Steps was blocked, click <strong>Open Anyway</strong>.</li>
-                  <li>Enter your Mac password or use Touch ID.</li>
-                  <li>macOS asks once more. Click <strong>Open Anyway</strong>.</li>
+                  <li>A dialog titled <strong>Open “Little Steps”?</strong> appears. Click <strong>Open Anyway</strong>, the middle button. Not the blue Move to Trash (or Bin) button.</li>
+                  <li>Enter an administrator’s name and password, or use Touch ID. Little Steps then opens.</li>
                 </ol>
                 <p>You only do this once. After that, Little Steps opens like any other app. If there is no Open Anyway button, double-click Little Steps once more and go back to Privacy &amp; Security: the button only shows for a while after a blocked open.</p>
                 <details>
@@ -361,6 +374,11 @@
               On your Mac, in the folder <code>~/Library/Application Support/Little Steps</code>, with a small settings file at
               <code>~/Library/Preferences/io.github.prasanna-ks-85.littlesteps.plist</code>. <a href="#uninstall">Uninstalling</a> shows how to remove both.
             </dd>
+
+            <dt>Does it work with the keyboard and VoiceOver?</dt>
+            <dd>
+              The main window is keyboard-friendly, and I checked it with VoiceOver. The little panel opens by clicking the companion, and everything in it is also in the main window.
+            </dd>
           </dl>
         </div>
       </section>
@@ -373,6 +391,7 @@
           Character and forest art made with ChatGPT image generation. Fonts: Fraunces and Nunito (SIL OFL 1.1:
           <a href="assets/fonts/OFL-Fraunces.txt">Fraunces licence</a>, <a href="assets/fonts/OFL-Nunito.txt">Nunito licence</a>). Music and sounds made in code.
         </p>
+        <p><a href="https://github.com/Prasanna-KS-85/little-steps-site/issues" rel="noopener">Found a problem or have an idea? Open an issue.</a></p>
         <p class="made">Made by Prasanna</p>
       </div>
     </footer>
